@@ -1,4 +1,3 @@
-markleppke.github.io
-====================
+# Mark Leppke Portfolio
 
-personal site
+This is a portfolio site for Mark Leppke.
