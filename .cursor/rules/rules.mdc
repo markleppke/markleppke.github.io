@@ -1,0 +1,217 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+Astro Cursor Project Rules
+Project Overview
+This is an Astro project. Astro is a modern static site generator that allows you to build fast websites with your favorite UI frameworks (React, Vue, Svelte, etc.) or vanilla HTML/CSS/JS.
+Core Astro Principles
+1. Component Architecture
+
+Use .astro files for components that don't need client-side interactivity
+Astro components have two parts: Component Script (frontmatter) and Component Template
+Component Script is written between --- fences at the top of the file
+Component Template uses JSX-like syntax but renders to static HTML by default
+
+2. File Structure
+src/
+├── components/     # Reusable components (.astro, .jsx, .vue, .svelte)
+├── layouts/        # Page layouts (.astro)
+├── pages/          # File-based routing (.astro, .md, .mdx)
+├── styles/         # CSS files
+└── assets/         # Static assets (images, fonts, etc.)
+3. Routing
+
+File-based routing in src/pages/
+src/pages/index.astro = /
+src/pages/about.astro = /about
+src/pages/blog/[slug].astro = dynamic routes
+src/pages/blog/[...slug].astro = rest parameters
+
+Coding Standards
+Astro Component Structure
+astro---
+// Component Script (runs at build time)
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Default description" } = Astro.props;
+
+// Server-side code here
+const posts = await fetch('/api/posts').then(r => r.json());
+---
+
+<!-- Component Template -->
+<html>
+  <head>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <h1>{title}</h1>
+    <!-- Rest of template -->
+  </body>
+</html>
+TypeScript Usage
+
+Always use TypeScript for type safety
+Define Props interfaces for all components
+Use Astro.props to access component props
+Leverage Astro's built-in TypeScript support
+
+CSS and Styling
+
+Prefer scoped styles using <style> tags in Astro components
+Use CSS modules or global styles when needed
+Astro automatically scopes styles to components
+Use class:list for conditional classes
+
+Client-Side Interactivity
+
+Use client directives for interactive components:
+
+client:load - hydrate immediately
+client:idle - hydrate when browser is idle
+client:visible - hydrate when component enters viewport
+client:media - hydrate based on media query
+
+
+Only add interactivity when necessary (Islands Architecture)
+
+Framework Integration
+React Components
+astro---
+import MyReactComponent from '../components/MyReactComponent.jsx';
+---
+
+<MyReactComponent client:load />
+Vue Components
+astro---
+import MyVueComponent from '../components/MyVueComponent.vue';
+---
+
+<MyVueComponent client:idle />
+Best Practices
+Performance
+
+Default to static generation - only use client directives when needed
+Optimize images using Astro's built-in image optimization
+Use astro:assets for image imports and optimization
+Minimize JavaScript bundle size by avoiding unnecessary client-side code
+
+SEO and Meta Tags
+
+Use layouts for consistent meta tags
+Implement proper OpenGraph and Twitter Card tags
+Use semantic HTML structure
+Include proper heading hierarchy (h1, h2, h3, etc.)
+
+Content Management
+
+Use Markdown/MDX for content-heavy pages
+Implement content collections for structured content
+Use frontmatter for metadata in Markdown files
+
+API Routes
+
+Create API endpoints in src/pages/api/
+Use .js, .ts files for API routes
+Return Response objects from API routes
+
+Configuration
+astro.config.mjs
+javascriptimport { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+import tailwind from '@astrojs/tailwind';
+
+export default defineConfig({
+  integrations: [react(), tailwind()],
+  site: 'https://example.com',
+  // Other config options
+});
+Environment Variables
+
+Use .env files for environment variables
+Access with import.meta.env.VARIABLE_NAME
+Prefix public variables with PUBLIC_
+
+Common Patterns
+Layout Component
+astro---
+// src/layouts/Layout.astro
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Default description" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
+Dynamic Pages
+astro---
+// src/pages/blog/[slug].astro
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+---
+
+<Layout title={post.data.title}>
+  <article>
+    <h1>{post.data.title}</h1>
+    <Content />
+  </article>
+</Layout>
+Error Handling and Debugging
+
+Use Astro's dev server for hot reloading during development
+Check the browser console for hydration errors
+Use console.log() in component scripts for server-side debugging
+Validate Props interfaces to catch type errors early
+
+Build and Deployment
+
+Run astro build to generate static site
+Output goes to dist/ directory
+Use astro preview to test production build locally
+Deploy to any static hosting provider (Netlify, Vercel, GitHub Pages, etc.)
+
+Code Quality
+
+Use ESLint and Prettier for code formatting
+Follow consistent naming conventions (PascalCase for components, camelCase for variables)
+Write descriptive commit messages
+Use meaningful variable and function names
+Comment complex logic in component scripts
+
+Testing
+
+Use Playwright or similar for end-to-end testing
+Test component rendering and functionality
+Validate generated HTML structure
+Test client-side interactions when using framework components
