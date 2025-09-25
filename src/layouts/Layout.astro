@@ -1,25 +1,67 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Home | markleppke.com</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Home | Mark Leppke - UX Leader</title>
+	<meta name="description" content="Mark Leppke is an experienced UX designer and leader creating intuitive, user-centered digital experiences. View portfolio and connect for UX design projects.">
+    <meta name="keywords" content="UX designer, UI designer, user experience, design leader, portfolio, Mark Leppke">
+    <meta name="author" content="Mark Leppke">
+
+    <!-- Open Graph Meta Tags (for social sharing) -->
+    <meta property="og:title" content="Mark Leppke - UX Designer & Leader">
+    <meta property="og:description" content="Experienced UX designer and leader creating intuitive, user-centered digital experiences.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://markleppke.com">
+    <meta property="og:image" content="https://markleppke.com/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Mark Leppke Portfolio">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mark Leppke - UX Designer & Leader">
+    <meta name="twitter:description" content="Experienced UX designer and leader creating intuitive, user-centered digital experiences.">
+    <meta name="twitter:image" content="https://markleppke.com/images/twitter-card.jpg">
+    <meta name="twitter:creator" content="@markleppke">
+    
+    <!-- Additional SEO Meta Tags -->
+    <link rel="canonical" href="https://markleppke.com">
+    <meta name="robots" content="index, follow">
+
+    <meta name="generator" content={Astro.generator} />
+    
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+	<!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KV58SCM5MD"
+    ></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-KV58SCM5MD");
+    </script></head
+  >
+  
+
+  <body>
+    <slot />
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
